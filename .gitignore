@@ -1,0 +1,10 @@
+# Ignore everything in this directory
+**/out
+**/**.iml
+test/**
+
+# IDE
+.idea
+
+# jar files
+lib
