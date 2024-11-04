@@ -17,7 +17,7 @@ class BuildTypeInitializer extends Pipeline implements IInitializeProcessData {
     }
 
     void initialize() {
-        createDoBuildUIParam()
+        createDoBuildConfigure()
         initializeBuildCause()
         skipDefaultCheckout()
         setupBuildNode()
@@ -25,7 +25,7 @@ class BuildTypeInitializer extends Pipeline implements IInitializeProcessData {
         setupGitVersionParametersForUI()
     }
 
-    private createDoBuildUIParam() {
+    private createDoBuildConfigure() {
         config.DO_BUILD_HANDLER.main(config)
     }
 
@@ -79,13 +79,13 @@ class BuildTypeInitializer extends Pipeline implements IInitializeProcessData {
 
     private void addTriggerForSCM() {
         if (config.SCM == SCM_GIT) {
-            config.CUSTOM_PROPERTIES.add(pipelineTriggers([pollSCM('')]))
+            config.CONFIGURE_PROPERTIES << pipelineTriggers([pollSCM('')])
         }
     }
 
     private void configureForDailyBuild() {
         EchoStep("config.CronExpression = ${config.CRON_EXPRESSION} set")
-        config.CUSTOM_PROPERTIES.add(pipelineTriggers([cron(config.CRON_EXPRESSION as String)]))
+        config.CONFIGURE_PROPERTIES << pipelineTriggers([cron(config.CRON_EXPRESSION as String)])
     }
 
     private void setupGitVersionParametersForUI() {

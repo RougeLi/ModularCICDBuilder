@@ -36,7 +36,7 @@ class DeployTags extends Panel {
         DeployTagsMap[PARAMS_NAME] = DeployTagsParamName
         DeployTagsMap[PARAMS_DESCRIPTION] = DeployTagsParamDesc
         DeployTagsMap[PARAMS_DEFAULT_VALUE] = DeployTagsDefaultValue
-        config.CUSTOM_PARAMETERS << string(DeployTagsMap)
+        config.CONFIGURE_PARAMETERS << string(DeployTagsMap)
         if (tags == null) {
             entryResetUIStage("${DeployTagsParamName} is null.")
         }

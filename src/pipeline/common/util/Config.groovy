@@ -2,10 +2,12 @@ package pipeline.common.util
 
 import pipeline.artifact.docker.DockerImageNameMaker
 import pipeline.artifact.util.DoBuildHandler
+import pipeline.common.constants.WorkflowType
 import pipeline.common.consul.ConsulKVBaseInfo
 
 class Config extends ConfigMethods {
     // Parameters passed in from outside.
+    public static String JOB_PURPOSE // use to method flowTypeInit()
     public static String SCM
     public static String PROJECT_CODE
     public static String GIT_URL
@@ -15,15 +17,14 @@ class Config extends ConfigMethods {
     public static String MODULE
     public static LinkedHashMap<Serializable, Serializable> MODULE_ARG_MAP
 
-    // Form the DevOps Artifact Project.
-    public static String BUILD_TYPE
-    public static String BUILD_PLATFORM
-    public static String CODE_TYPE
-    public static String ARTIFACT_TYPE
+    // CI 相關參數
+    public static String BUILD_TYPE // BuildTypeLabel
+    public static String BUILD_PLATFORM // from the package flow.ci.*
 
     // Program control flow using parameters.
     public static String JOB_STATUS
-    public static String FLOW
+    public static WorkflowType WORK_FLOW
+    public static boolean PARAM_BUILD_MODE
     public static boolean SKIP_ALL_FLOW
     public static String BUILD_LABEL
     public static String PROJECT_LABEL
@@ -35,11 +36,17 @@ class Config extends ConfigMethods {
     public static ProjectInfraState PROJECT_INFRA_STATE
     public static LinkedHashSet<String> EXTRA_JENKINS_CREDENTIAL_LIST = []
 
-    // Jenkins UI相關參數
-    public static ArrayList CUSTOM_PARAMETERS = []
-    public static ArrayList CUSTOM_PROPERTIES = []
+    /**
+     * Defines a list of parameters and properties for configuring the Jenkins job.
+     * The items in the list are of type org.jenkinsci.plugins.workflow.cps.UninstantiatedDescribableWithInterpolation.
+     */
+    public static ArrayList CONFIGURE_PROPERTIES = []
+    /**
+     * Defines a list of properties for configuring the Jenkins job.
+     */
+    public static ArrayList CONFIGURE_PARAMETERS = []
 
-    // structure已定義
+    // Define the structure
     public static DoBuildHandler DO_BUILD_HANDLER
     public static String CRON_EXPRESSION
     public static ConsulKVBaseInfo CONSUL_KV

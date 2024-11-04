@@ -22,7 +22,7 @@ class DoBuildPanel extends Panel {
         doBuildBooleanMap[PARAMS_NAME] = doBuildUIParamName
         doBuildBooleanMap[PARAMS_DESCRIPTION] = doBuildUIParamDesc
         doBuildBooleanMap[PARAMS_DEFAULT_VALUE] = jenkinsfileDoBuild
-        config.CUSTOM_PARAMETERS << booleanParam(doBuildBooleanMap)
+        config.CONFIGURE_PARAMETERS << booleanParam(doBuildBooleanMap)
         if (doBuild == null) {
             entryResetUIStage("${doBuildUIParamName} is null.")
         }

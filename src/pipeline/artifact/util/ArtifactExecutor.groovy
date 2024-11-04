@@ -3,21 +3,21 @@ package pipeline.artifact.util
 import pipeline.artifact.ci.BuildBase
 import pipeline.artifact.ci.Util
 import pipeline.artifact.ci.BuildPlatform
-import pipeline.common.constants.FlowType
+import pipeline.common.constants.WorkflowType
 import pipeline.flow.cd.CustomActionFlow
-import pipeline.common.util.MasterStage
+import pipeline.common.util.BaseExecutor
 import pipeline.common.util.Config
 import pipeline.common.util.StrategyTuple
 import pipeline.flow.util.StageFlow
 
-class Master extends MasterStage {
+class ArtifactExecutor extends BaseExecutor {
     private Closure ciFlowClosure = null
 
-    Master(Config config) {
+    ArtifactExecutor(Config config) {
         super(config)
     }
 
-    void runCIFlow() {
+    void executeBuildFlow() {
         if (config.SKIP_ALL_FLOW) {
             return
         }
@@ -31,7 +31,7 @@ class Master extends MasterStage {
         node(config.BUILD_NODE, ciFlowClosure)
     }
 
-    void runCDFlow() {
+    void executeDeployFlow() {
         if (config.SKIP_ALL_FLOW) {
             return
         }
@@ -49,36 +49,38 @@ class Master extends MasterStage {
         currentBuild.result = 'FAILURE'
     }
 
-    void customInit() {
-        optionalArgInit()
-        platformLibInit()
-        setupJobUI()
+    void setupJobConfigureProcess() {
+        optionalArgInitial()
+        setupJobConfigure()
     }
 
-    private void optionalArgInit() {
+    private void optionalArgInitial() {
         new OptionalArgInitializer(config).initialize()
     }
 
-    private void setupJobUI() {
-        unityBasicUI()
-        setupCIUI()
-        setupCDUI()
-        settingProperties()
+    private void setupJobConfigure() {
+        unityBasicConfigure()
+        setupBuildConfigure()
+        setupDeployConfigure()
+        settingConfigure()
     }
 
-    private void setupCIUI() {
-        if (config.FLOW != FlowType.CI && !config.DO_BUILD_HANDLER.openBuildUI) {
+    private void setupBuildConfigure() {
+        if (config.WORK_FLOW == WorkflowType.Deploy) {
             return
         }
-        buildPlatformInit()
-        buildNodeListInit()
-        buildTypeInit()
+
+        // todo 定義job配置過程中，不應該同時去定義build階段需要的階段清單與節點
+        buildPlatformInitial()
+        buildNodeListInitial()
+
+        buildTypeInitial()
     }
 
     /**
      * Build Platform初始化
      */
-    private void buildPlatformInit() {
+    private void buildPlatformInitial() {
         Class buildPlatformClass = BuildPlatform.getBuildPlatformClass(
                 config.BUILD_PLATFORM
         )
@@ -91,7 +93,7 @@ class Master extends MasterStage {
     /**
      * Build Node List初始化
      */
-    private void buildNodeListInit() {
+    private void buildNodeListInitial() {
         if (config.BUILD_LABEL == null && config.PROJECT_LABEL == null) {
             config.NODE_LIST = []
             EchoStep('No BUILD_LABEL and PROJECT_LABEL')
@@ -117,17 +119,20 @@ class Master extends MasterStage {
         EchoStep("Available Build Nodes: ${config.NODE_LIST}")
     }
 
-    private buildTypeInit() {
+    private buildTypeInitial() {
         new BuildTypeInitializer(config).initialize()
     }
 
-    private void setupCDUI() {
+    private void setupDeployConfigure() {
+        if (config.WORK_FLOW == WorkflowType.Build) {
+            return
+        }
         Manager.setupUI(config)
     }
 
-    private void unityBasicUI() {
-        config.CUSTOM_PROPERTIES << disableConcurrentBuilds()
-        config.CUSTOM_PROPERTIES << buildDiscarder(logRotator(logRotatorArgMap))
+    private void unityBasicConfigure() {
+        config.CONFIGURE_PROPERTIES << disableConcurrentBuilds()
+        config.CONFIGURE_PROPERTIES << buildDiscarder(logRotator(logRotatorArgMap))
     }
 
     private static LinkedHashMap getLogRotatorArgMap() {

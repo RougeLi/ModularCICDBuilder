@@ -21,7 +21,7 @@ class SudoChoice extends Panel {
         sudoChoiceMap[PARAMS_NAME] = sudoChoiceParamName
         sudoChoiceMap[PARAMS_DESCRIPTION] = sudoChoiceParamDesc
         sudoChoiceMap[PARAMS_CHOICES] = sudoChoiceList
-        config.CUSTOM_PARAMETERS << choice(sudoChoiceMap)
+        config.CONFIGURE_PARAMETERS << choice(sudoChoiceMap)
         if (sudoChoice == null) {
             entryResetUIStage("${sudoChoiceParamName} is null.")
         }

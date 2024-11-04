@@ -19,7 +19,7 @@ class SSHRemoteCommand extends Panel {
         LinkedHashMap sshRemoteCommandMap = [:]
         sshRemoteCommandMap[PARAMS_NAME] = sshRemoteCommandParamName
         sshRemoteCommandMap[PARAMS_DESCRIPTION] = sshRemoteCommandParamDesc
-        config.CUSTOM_PARAMETERS << string(sshRemoteCommandMap)
+        config.CONFIGURE_PARAMETERS << string(sshRemoteCommandMap)
         if (remoteCommand == null) {
             entryResetUIStage("${sshRemoteCommandParamName} is null.")
         }

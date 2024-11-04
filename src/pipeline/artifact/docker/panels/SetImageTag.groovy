@@ -38,7 +38,7 @@ class SetImageTag extends Panel {
             paramMap[PARAMS_NAME] = getParamsName(image)
             paramMap[PARAMS_DESCRIPTION] = description
             paramMap[PARAMS_DEFAULT_VALUE] = DEFAULT_TAG
-            config.CUSTOM_PARAMETERS << string(paramMap)
+            config.CONFIGURE_PARAMETERS << string(paramMap)
         }
     }
 

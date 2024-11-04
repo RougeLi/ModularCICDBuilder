@@ -33,7 +33,7 @@ class GitREVersion extends Panel {
         paramMap[PARAMS_NAME] = gitREVersionParamName
         paramMap[PARAMS_DESCRIPTION] = gitREVersionParamDesc
         paramMap[PARAMS_DEFAULT_VALUE] = defaultGitREVersion
-        config.CUSTOM_PARAMETERS << string(paramMap)
+        config.CONFIGURE_PARAMETERS << string(paramMap)
         if (gitREVersion == null) {
             entryResetUIStage("${gitREVersionParamName} is null.")
         }

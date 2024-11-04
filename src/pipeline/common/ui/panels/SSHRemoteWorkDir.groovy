@@ -19,7 +19,7 @@ class SSHRemoteWorkDir extends Panel {
         LinkedHashMap sshRemoteWorkDirMap = [:]
         sshRemoteWorkDirMap[PARAMS_NAME] = sshRemoteWorkDirParamName
         sshRemoteWorkDirMap[PARAMS_DESCRIPTION] = sshRemoteWorkDirParamDesc
-        config.CUSTOM_PARAMETERS << string(sshRemoteWorkDirMap)
+        config.CONFIGURE_PARAMETERS << string(sshRemoteWorkDirMap)
         if (remoteWorkDir == null) {
             entryResetUIStage("${sshRemoteWorkDirParamName} is null.")
         }

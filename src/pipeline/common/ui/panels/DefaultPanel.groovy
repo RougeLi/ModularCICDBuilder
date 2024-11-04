@@ -23,7 +23,7 @@ class DefaultPanel extends Panel {
         paramMap.put('name', defaultUIParamName)
         paramMap.put('defaultValue', new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date()))
         paramMap.put('description', description)
-        config.CUSTOM_PARAMETERS << string(paramMap)
+        config.CONFIGURE_PARAMETERS << string(paramMap)
         return this
     }
 }

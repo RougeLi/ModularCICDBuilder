@@ -20,7 +20,7 @@ class BuildNode extends Panel {
         buildNodeChoiceMap[PARAMS_NAME] = buildNodeParamName
         buildNodeChoiceMap[PARAMS_CHOICES] = config.NODE_LIST.join('\n')
         buildNodeChoiceMap[PARAMS_DESCRIPTION] = buildNodeParamDesc
-        config.CUSTOM_PARAMETERS << choice(buildNodeChoiceMap)
+        config.CONFIGURE_PARAMETERS << choice(buildNodeChoiceMap)
         if (selectedNode == null) {
             entryResetUIStage("${buildNodeParamName} is null.")
         }
