@@ -2,8 +2,7 @@ package pipeline.common.util
 
 import pipeline.common.constants.JenkinsNodes
 import pipeline.Pipeline
-import pipeline.common.constants.CodeType
-import pipeline.common.constants.FlowType
+import pipeline.common.constants.WorkflowType
 
 abstract class BaseExecutor extends Pipeline {
     static final ArrayList<Closure> endClosures = []
@@ -55,20 +54,15 @@ abstract class BaseExecutor extends Pipeline {
     }
 
     protected void flowTypeInit() {
-        switch (config.CODE_TYPE) {
-            case CodeType.INFRA:
-                config.FLOW = FlowType.INFRA
+        switch (config.JOB_PURPOSE) {
+            case 'build':
+                config.WORK_FLOW = WorkflowType.Build
                 break
-            case CodeType.ARTIFACT:
-                if (config.ARTIFACT_TYPE == FlowType.CI) {
-                    config.FLOW = FlowType.CI
-                }
-                break
-            case CodeType.CONFIG:
-                config.FLOW = FlowType.CONFIG
+            case 'deploy':
+                config.WORK_FLOW = WorkflowType.Deploy
                 break
             default:
-                config.FLOW = FlowType.NONE
+                config.WORK_FLOW = WorkflowType.Dev
                 break
         }
     }

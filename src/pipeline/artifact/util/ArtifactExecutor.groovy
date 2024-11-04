@@ -3,7 +3,7 @@ package pipeline.artifact.util
 import pipeline.artifact.ci.BuildBase
 import pipeline.artifact.ci.Util
 import pipeline.artifact.ci.BuildPlatform
-import pipeline.common.constants.FlowType
+import pipeline.common.constants.WorkflowType
 import pipeline.flow.cd.CustomActionFlow
 import pipeline.common.util.BaseExecutor
 import pipeline.common.util.Config
@@ -67,7 +67,7 @@ class ArtifactExecutor extends BaseExecutor {
     }
 
     private void setupCIUI() {
-        if (config.FLOW != FlowType.CI && !config.DO_BUILD_HANDLER.openBuildUI) {
+        if (config.WORK_FLOW == WorkflowType.Deploy) {
             return
         }
         buildPlatformInit()
@@ -122,6 +122,9 @@ class ArtifactExecutor extends BaseExecutor {
     }
 
     private void setupCDUI() {
+        if (config.WORK_FLOW == WorkflowType.Build) {
+            return
+        }
         Manager.setupUI(config)
     }
 
