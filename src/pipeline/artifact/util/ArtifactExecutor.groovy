@@ -5,15 +5,15 @@ import pipeline.artifact.ci.Util
 import pipeline.artifact.ci.BuildPlatform
 import pipeline.common.constants.FlowType
 import pipeline.flow.cd.CustomActionFlow
-import pipeline.common.util.MasterStage
+import pipeline.common.util.BaseExecutor
 import pipeline.common.util.Config
 import pipeline.common.util.StrategyTuple
 import pipeline.flow.util.StageFlow
 
-class Master extends MasterStage {
+class ArtifactExecutor extends BaseExecutor {
     private Closure ciFlowClosure = null
 
-    Master(Config config) {
+    ArtifactExecutor(Config config) {
         super(config)
     }
 
@@ -49,7 +49,7 @@ class Master extends MasterStage {
         currentBuild.result = 'FAILURE'
     }
 
-    void customInit() {
+    void configureCustomSettings() {
         optionalArgInit()
         platformLibInit()
         setupJobUI()

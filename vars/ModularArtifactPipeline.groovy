@@ -1,17 +1,17 @@
-import pipeline.artifact.util.Master
+import pipeline.artifact.util.ArtifactExecutor
 
 def call(Closure body) {
     def config = GenerateModularConfig.getConfig(this, body)
-    def master = new Master(config)
+    def artifactExecutor = new ArtifactExecutor(config)
     try {
-        master.init()
-        master.limitedTimeExecution {
-            master.runCIFlow()
-            master.runCDFlow()
+        artifactExecutor.confirmJobConfiguration()
+        artifactExecutor.limitedTimeExecution {
+            artifactExecutor.runCIFlow()
+            artifactExecutor.runCDFlow()
         }
     } catch (Throwable error) {
-        master.catchException(error)
+        artifactExecutor.catchException(error)
     } finally {
-        master.onEnd()
+        artifactExecutor.onEnd()
     }
 }

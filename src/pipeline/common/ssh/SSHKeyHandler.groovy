@@ -1,7 +1,7 @@
 package pipeline.common.ssh
 
 import pipeline.Pipeline
-import pipeline.common.util.MasterStage
+import pipeline.common.util.BaseExecutor
 import pipeline.Infra.BastionInfoProvider
 
 class SSHKeyHandler extends Pipeline {
@@ -29,11 +29,11 @@ class SSHKeyHandler extends Pipeline {
         if (isRegisterEnd) {
             return
         }
-        registerMasterEnd()
+        registerExecutorEnd()
         isRegisterEnd = true
     }
 
-    private static void registerMasterEnd() {
+    private static void registerExecutorEnd() {
         Closure removeSSHKeyClosure = {
             String nodeId, ArrayList<String> remoteHostMap ->
                 node(nodeId) {
@@ -42,7 +42,7 @@ class SSHKeyHandler extends Pipeline {
                     }
                 }
         }
-        MasterStage.endClosures << { remoteHostMap.each(removeSSHKeyClosure) }
+        BaseExecutor.endClosures << { remoteHostMap.each(removeSSHKeyClosure) }
     }
 
     private static void checkBastionHostSSHKey(String nodeId, String credentialID) {

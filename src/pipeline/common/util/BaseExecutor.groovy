@@ -5,19 +5,19 @@ import pipeline.Pipeline
 import pipeline.common.constants.CodeType
 import pipeline.common.constants.FlowType
 
-abstract class MasterStage extends Pipeline {
+abstract class BaseExecutor extends Pipeline {
     static final ArrayList<Closure> endClosures = []
     protected TimeoutHandler timeoutHandler
     protected int limitCount = 5
     protected Config config
-    protected String stageName = 'Master init'
+    protected String stageName = 'Job Configuration Confirmation'
 
-    MasterStage(Config config) {
+    BaseExecutor(Config config) {
         this.config = config
         timeoutHandler = new TimeoutHandler(config)
     }
 
-    abstract void customInit()
+    abstract void configureCustomSettings()
 
     abstract void catchException(Throwable e)
 
@@ -26,9 +26,9 @@ abstract class MasterStage extends Pipeline {
         timeoutHandler.call(body)
     }
 
-    void init() {
+    void confirmJobConfiguration() {
         stage(stageName) {
-            customInit()
+            configureCustomSettings()
             syncConfigFieldsToMap()
         }
     }
