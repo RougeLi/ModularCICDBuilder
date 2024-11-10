@@ -40,7 +40,7 @@ class CustomActionFlow extends Base {
 
     private static CollectionStage getCustomAction(StageTuple stageTuple) {
         def customAction = PrepareStage.createStage(stageTuple) as CollectionStage
-        EchoStep("ready to execute $stageTuple.stageName CustomAction.")
+        EchoStep("ready to execute `$stageTuple.stageName`.")
         return customAction
     }
 
@@ -64,7 +64,8 @@ class CustomActionFlow extends Base {
     }
 
     private static void exceptionHandler(Exception e, String stageName) {
-        EchoStep("$stageName CustomAction execute failed.\n$e")
-        throw e
+        String errorMessage = "CollectionStage: `$stageName` execute failed."
+        EchoStep("${errorMessage}\n$e")
+        throw new Error(errorMessage)
     }
 }
