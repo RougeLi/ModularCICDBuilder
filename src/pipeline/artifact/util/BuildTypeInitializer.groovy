@@ -1,15 +1,14 @@
 package pipeline.artifact.util
 
-import pipeline.common.constants.ESCM
 import pipeline.Pipeline
 import pipeline.common.constants.BuildCauseType
 import pipeline.common.constants.BuildTypeLabel
+import pipeline.common.constants.SCM
 import pipeline.common.ui.panels.GitREVersion
 import pipeline.common.util.Config
 
 class BuildTypeInitializer extends Pipeline implements IInitializeProcessData {
     private static final String USER_ID_CAUSE = 'UserIdCause'
-    private static final String SCM_GIT = ESCM.GIT.name()
     private Config config
 
     BuildTypeInitializer(Config config) {
@@ -78,7 +77,7 @@ class BuildTypeInitializer extends Pipeline implements IInitializeProcessData {
     }
 
     private void addTriggerForSCM() {
-        if (config.SCM == SCM_GIT) {
+        if (config.SCM == SCM.Git) {
             config.CONFIGURE_PROPERTIES << pipelineTriggers([pollSCM('')])
         }
     }
@@ -89,7 +88,7 @@ class BuildTypeInitializer extends Pipeline implements IInitializeProcessData {
     }
 
     private void setupGitVersionParametersForUI() {
-        if (config.SCM != SCM_GIT) {
+        if (config.SCM != SCM.Git) {
             return
         }
         GitREVersion useGetGitVersion = new GitREVersion(config)

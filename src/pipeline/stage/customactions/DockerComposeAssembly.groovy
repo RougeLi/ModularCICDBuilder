@@ -46,7 +46,7 @@ class DockerComposeAssembly extends CustomAction {
     }
 
     private static void execCheckout(Config config) {
-        new CheckOutStage().setIsCIFlow(false).main(config)
+        new CheckOutStage().entryDeployMode().main(config)
     }
 
     private static void initComposeDeployerMap(Config config, LinkedHashMap stageArgs) {

@@ -1,22 +1,20 @@
 package pipeline.stage.flowstages
 
-import pipeline.common.constants.ESCM
+import pipeline.common.constants.SCM
 import pipeline.common.scm.Git
 import pipeline.common.util.Config
 import pipeline.stage.util.Stage
 
-@SuppressWarnings('unused')
 class CheckOutStage extends Stage {
     public String STAGE_NAME = 'Checkout'
-    private static final String SCM_GIT = ESCM.GIT.name()
-    private boolean isCIFlow = true
+    private boolean entryBuildFlow = true
 
     void main(Config config) {
         stage(STAGE_NAME) {
             EchoStep("SCM: ${config.SCM}, BUILD_PLATFORM: ${config.BUILD_PLATFORM}")
             switch (config.SCM) {
-                case SCM_GIT:
-                    Git.checkout(config, isCIFlow)
+                case SCM.Git:
+                    Git.checkout(config, entryBuildFlow)
                     break
                 default:
                     EchoStep("Not support SCM: ${config.SCM}")
@@ -25,8 +23,8 @@ class CheckOutStage extends Stage {
         }
     }
 
-    CheckOutStage setIsCIFlow(boolean isCIFlow) {
-        this.isCIFlow = isCIFlow
+    CheckOutStage entryDeployMode() {
+        this.entryBuildFlow = false
         return this
     }
 }

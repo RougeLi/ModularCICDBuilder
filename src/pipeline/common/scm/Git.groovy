@@ -6,11 +6,11 @@ import pipeline.common.util.Config
 
 class Git extends Pipeline {
 
-    static void checkout(Config config, boolean isCIFlow) {
+    static void checkout(Config config, boolean isBuildFlow) {
         def checkoutInfoSB = new StringBuilder('### Checkout Git ###\n')
         def gitREVersion = new GitREVersion(config)
         String branch = "*/${BRANCH_NAME}"
-        if (isCIFlow && !gitREVersion.isGitREVersionNone) {
+        if (isBuildFlow && !gitREVersion.isGitREVersionNone) {
             branch = gitREVersion.gitREVersion
             checkoutInfoSB.append("Use Git REVersion: ${branch}\n")
         }
