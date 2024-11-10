@@ -5,9 +5,9 @@ import pipeline.common.util.BaseStructure
 
 @SuppressWarnings('unused')
 class DockerImageRegistry extends BaseStructure {
-    private static final String PROJECT_CODE = 'PROJECT_CODE'
     private static final String REGISTRY_URL = 'REGISTRY_URL'
     private static final String REPOSITORY_NAME = 'REPOSITORY_NAME'
+    private static final String PROJECT_CODE = 'PROJECT_CODE'
 
     DockerImageRegistry(LinkedHashMap config) {
         super(config)
