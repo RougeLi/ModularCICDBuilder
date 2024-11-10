@@ -13,6 +13,16 @@ class ReceiveGithubWebhook extends CollectionStage {
             def genericCause = currentBuild.rawBuild.getCause(GenericCause)
             def postContentMap = [:]
             postContentMap << new JsonSlurper().parseText(genericCause.postContent)
+            def ref = postContentMap.ref as String
+            EchoStep(getBranch(ref))
+            def pusher = postContentMap.pusher as Map
+            EchoStep(pusher.toString())
+            EchoStep(pusher.name as String)
         }
+    }
+
+    static def getBranch(String ref) {
+        def parts = ref.split('/')
+        return parts[-1]
     }
 }
