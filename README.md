@@ -83,7 +83,7 @@ Jenkins pipeline.
 - `BUILD_PLATFORM`: Determines the build context (e.g., 'docker'). It maps to a specific Groovy script
   like `src/pipeline/artifact/ci/build/docker.groovy` which contains the logic for Docker-based builds.
 
-- `BUILD_WORK_FLOW_ARGS_LIST`: Supplies the necessary arguments for the specified `BUILD_PLATFORM`. This list contains
+- `BUILD_ARGUMENT_LIST`: Supplies the necessary arguments for the specified `BUILD_PLATFORM`. This list contains
   configuration details like Docker image names, Dockerfile templates, and more.
 
 - `BUILD_TYPE`: Indicates the trigger type for the build process (e.g., 'Manual'), allowing for different types of build

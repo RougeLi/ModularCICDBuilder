@@ -13,7 +13,7 @@ class Config extends ConfigMethods {
     public static String GIT_URL
     public static String GIT_CREDENTIALS_ID
     public static int PIPELINE_TIMEOUT = 0
-    public static ArrayList<LinkedHashMap> BUILD_WORK_FLOW_ARGS_LIST
+    public static ArrayList<LinkedHashMap> BUILD_ARGUMENT_LIST
     public static String MODULE
     public static LinkedHashMap<Serializable, Serializable> MODULE_ARG_MAP
 

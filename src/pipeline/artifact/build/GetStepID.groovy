@@ -1,4 +1,4 @@
-package pipeline.artifact.ci
+package pipeline.artifact.build
 
 import pipeline.Pipeline
 import org.jenkinsci.plugins.workflow.cps.nodes.StepStartNode

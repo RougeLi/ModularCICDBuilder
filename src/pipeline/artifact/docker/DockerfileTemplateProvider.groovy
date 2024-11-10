@@ -65,7 +65,7 @@ class DockerfileTemplateProvider extends Pipeline {
     }
 
     private ArrayList<BuildWorkflowArgs> getBuildWorkflowArgsList() {
-        ArrayList<LinkedHashMap> maps = config.BUILD_WORK_FLOW_ARGS_LIST
+        ArrayList<LinkedHashMap> maps = config.BUILD_ARGUMENT_LIST
         if (maps == null) {
             throw new Exception('BuildWorkflowArgsList is null.')
         }

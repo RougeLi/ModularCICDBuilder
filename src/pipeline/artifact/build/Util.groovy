@@ -1,4 +1,4 @@
-package pipeline.artifact.ci
+package pipeline.artifact.build
 
 import com.cloudbees.groovy.cps.NonCPS
 import jenkins.model.Jenkins

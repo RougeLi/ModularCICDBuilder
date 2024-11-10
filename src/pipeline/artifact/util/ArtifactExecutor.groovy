@@ -1,8 +1,8 @@
 package pipeline.artifact.util
 
-import pipeline.artifact.ci.BuildBase
-import pipeline.artifact.ci.Util
-import pipeline.artifact.ci.BuildPlatform
+import pipeline.artifact.build.BuildBase
+import pipeline.artifact.build.Util
+import pipeline.artifact.build.BuildPlatform
 import pipeline.common.constants.WorkflowType
 import pipeline.flow.CustomActionFlow
 import pipeline.common.util.BaseExecutor
@@ -11,7 +11,7 @@ import pipeline.common.util.StrategyTuple
 import pipeline.flow.util.ActionFlow
 
 class ArtifactExecutor extends BaseExecutor {
-    private Closure ciFlowClosure = null
+    private Closure buildFlowClosure = null
 
     ArtifactExecutor(Config config) {
         super(config)
@@ -24,11 +24,11 @@ class ArtifactExecutor extends BaseExecutor {
         if (!config.DO_BUILD_HANDLER.doBuild) {
             return
         }
-        if (ciFlowClosure == null) {
+        if (buildFlowClosure == null) {
             String errorMessage = "No BUILD_PLATFORM: ${config.BUILD_PLATFORM}"
             throw new Exception(getStepStage(errorMessage))
         }
-        node(config.BUILD_NODE, ciFlowClosure)
+        node(config.BUILD_NODE, buildFlowClosure)
     }
 
     void executeDeployFlow() {
@@ -77,8 +77,8 @@ class ArtifactExecutor extends BaseExecutor {
         )
         BuildBase buildPlatform = buildPlatformClass.newInstance(config)
         buildPlatform.main()
-        ActionFlow stageMain = buildPlatform.getCIFlow()
-        ciFlowClosure = stageMain ? { stageMain.main() } : null
+        ActionFlow flow = buildPlatform.getActionFlow()
+        buildFlowClosure = flow ? { flow.main() } : null
     }
 
     /**

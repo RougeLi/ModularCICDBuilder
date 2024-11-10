@@ -1,6 +1,6 @@
-package pipeline.artifact.ci.build
+package pipeline.artifact.build
 
-import pipeline.artifact.ci.BuildBase
+
 import pipeline.common.util.Config
 
 class DefaultBuildPlatform extends BuildBase {
