@@ -31,7 +31,6 @@ class Config extends ConfigMethods {
     public static String BUILD_NODE
     public static String DEPLOY_NODE
     public static ArrayList NODE_LIST
-    public static String APP_MODE
     public static String BUILD_CAUSE
     public static ProjectInfraState PROJECT_INFRA_STATE
     public static LinkedHashSet<String> EXTRA_JENKINS_CREDENTIAL_LIST = []

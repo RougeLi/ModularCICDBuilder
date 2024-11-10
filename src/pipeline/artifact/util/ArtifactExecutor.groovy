@@ -50,15 +50,6 @@ class ArtifactExecutor extends BaseExecutor {
     }
 
     void setupJobConfigureProcess() {
-        optionalArgInitial()
-        setupJobConfigure()
-    }
-
-    private void optionalArgInitial() {
-        new OptionalArgInitializer(config).initialize()
-    }
-
-    private void setupJobConfigure() {
         unityBasicConfigure()
         setupBuildConfigure()
         setupDeployConfigure()
