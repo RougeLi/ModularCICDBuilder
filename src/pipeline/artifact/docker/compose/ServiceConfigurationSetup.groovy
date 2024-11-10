@@ -1,24 +1,24 @@
 package pipeline.artifact.docker.compose
 
 import pipeline.artifact.cd.DeploymentConfigManager
-import pipeline.artifact.docker.DockerImageNameMaker
+import pipeline.artifact.docker.DockerImageNameGenerator
 import pipeline.artifact.docker.panels.SpecifyImageTag
 
 class ServiceConfigurationSetup implements IConfigurationSetup {
     private ArrayList<ComposeUnit> composeUnits
-    private DockerImageNameMaker imageNameMaker
+    private DockerImageNameGenerator nameGenerator
     private SpecifyImageTag specifyImageTag
     private DeploymentConfigManager deploymentConfigManager
     private LinkedHashMap<String, ComposeServiceUnit> composeServiceUnits = [:]
 
     ServiceConfigurationSetup(
             ArrayList<ComposeUnit> composeUnits,
-            DockerImageNameMaker imageNameMaker,
+            DockerImageNameGenerator nameGenerator,
             SpecifyImageTag specifyImageTag,
             DeploymentConfigManager deploymentConfigManager
     ) {
         this.composeUnits = composeUnits
-        this.imageNameMaker = imageNameMaker
+        this.nameGenerator = nameGenerator
         this.specifyImageTag = specifyImageTag
         this.deploymentConfigManager = deploymentConfigManager
     }
@@ -48,7 +48,7 @@ class ServiceConfigurationSetup implements IConfigurationSetup {
                         composeService.setEnvironmentVariable(key, value)
                 }
                 new ArtifactImageManager(
-                        imageNameMaker,
+                        nameGenerator,
                         specifyImageTag,
                         serviceUnit
                 ).checkArtifactImage()

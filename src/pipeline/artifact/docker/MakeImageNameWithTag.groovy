@@ -12,17 +12,17 @@ class MakeImageNameWithTag extends Pipeline {
     private Config config
     private String image
     private String dockerfileName
-    private DockerImageNameMaker dockerImageNameMaker
+    private DockerImageNameGenerator nameGenerator
 
     MakeImageNameWithTag(Config config, String image, String dockerfileName) {
         this.config = config
         this.image = image
         this.dockerfileName = dockerfileName
-        this.dockerImageNameMaker = config.DOCKER_IMAGE_NAME_MAKER
+        this.nameGenerator = config.DOCKER_IMAGE_NAME_GENERATOR
     }
 
     void main() {
-        String dockerImage = dockerImageNameMaker.getDockerImage(image)
+        String dockerImage = nameGenerator.getDockerImage(image)
         BuildConfig buildConfig = new BuildConfig(dockerImage)
                 .addTag(TagLatest)
                 .setDockerfilePath(dockerfileName)

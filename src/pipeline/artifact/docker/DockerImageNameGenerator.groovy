@@ -3,27 +3,27 @@ package pipeline.artifact.docker
 import pipeline.Pipeline
 import com.cloudbees.groovy.cps.NonCPS
 
-class DockerImageNameMaker extends Pipeline {
-    protected String dockerRegistryURL
-    protected String dockerRouter
-    protected String projectCode
+class DockerImageNameGenerator extends Pipeline {
+    protected String REGISTRY_URL
+    protected String REPOSITORY_NAME
+    protected String PROJECT_CODE
 
-    DockerImageNameMaker(
-            String projectCode,
-            String dockerRegistryURL,
-            String dockerRouter
+    DockerImageNameGenerator(
+            String registryURL,
+            String repositoryName,
+            String projectCode
     ) {
-        this.projectCode = projectCode
-        this.dockerRegistryURL = dockerRegistryURL
-        this.dockerRouter = dockerRouter
+        this.REGISTRY_URL = registryURL
+        this.REPOSITORY_NAME = repositoryName
+        this.PROJECT_CODE = projectCode
         validate()
     }
 
     @NonCPS
     void validate() {
-        assert dockerRegistryURL != null
-        assert dockerRouter != null
-        assert projectCode != null
+        assert REGISTRY_URL != null
+        assert REPOSITORY_NAME != null
+        assert PROJECT_CODE != null
     }
 
     String getDockerImage(String image) {
@@ -35,16 +35,16 @@ class DockerImageNameMaker extends Pipeline {
 
     protected String getGCPArtifactRegistryDockerURL() {
         return new StringBuilder()
-                .append(dockerRegistryURL)
+                .append(REGISTRY_URL)
                 .append('/')
-                .append(dockerRouter)
+                .append(REPOSITORY_NAME)
                 .append('/')
                 .toString()
     }
 
     protected String getImageBaseName(String image) {
         return new StringBuilder()
-                .append(projectCode.toLowerCase())
+                .append(PROJECT_CODE.toLowerCase())
                 .append('/')
                 .append(branchName.toLowerCase())
                 .append('/')

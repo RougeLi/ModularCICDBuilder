@@ -11,7 +11,7 @@ abstract class DockerfileTemplate extends Pipeline {
     protected static final String DEST_DOCKERFILE = '/Dockerfile'
     protected final Config config
     protected final BuildWorkflowArgs buildWorkflowArgs
-    protected DockerImageNameMaker dockerImageNameMaker
+    protected DockerImageNameGenerator nameGenerator
     protected DockerfileVariables dockerfileVariables = new DockerfileVariables()
     protected DockerfileGenerator dockerfileGenerator = new DockerfileGenerator()
 
@@ -21,7 +21,7 @@ abstract class DockerfileTemplate extends Pipeline {
     ) {
         this.config = config
         this.buildWorkflowArgs = buildWorkflowArgs
-        this.dockerImageNameMaker = config.DOCKER_IMAGE_NAME_MAKER
+        this.nameGenerator = config.DOCKER_IMAGE_NAME_GENERATOR
     }
 
     abstract void generateDockerfile()

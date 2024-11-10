@@ -34,7 +34,7 @@ class DockerComposeAssembly extends CustomAction {
             if (config.PROJECT_INFRA_STATE == null) {
                 throw new Exception('PROJECT_INFRA_STATE is null.')
             }
-            if (config.DOCKER_IMAGE_NAME_MAKER == null) {
+            if (config.DOCKER_IMAGE_NAME_GENERATOR == null) {
                 throw new Exception('DOCKER_IMAGE_NAME_MAKER is null.')
             }
         } catch (Exception e) {
@@ -120,7 +120,7 @@ class DockerComposeAssembly extends CustomAction {
         for (int i = 0; i < deployTagsList.size(); i++) {
             def setup = new ServiceConfigurationSetup(
                     CombinationsList[i],
-                    config.DOCKER_IMAGE_NAME_MAKER,
+                    config.DOCKER_IMAGE_NAME_GENERATOR,
                     new SpecifyImageTag(config),
                     new DeploymentConfigManager('ComposeService')
             )

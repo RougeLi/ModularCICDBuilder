@@ -3,22 +3,22 @@ package pipeline.artifact.docker.compose
 import pipeline.Pipeline
 import pipeline.artifact.docker.compose.EDockerComposeServiceLevelKey as SK
 import pipeline.artifact.docker.compose.ServiceConfigurationSetup as Setup
-import pipeline.artifact.docker.DockerImageNameMaker
+import pipeline.artifact.docker.DockerImageNameGenerator
 import pipeline.artifact.docker.panels.SpecifyImageTag
 
 class ArtifactImageManager extends Pipeline {
     public static final String NOT_ARTIFACT_IMAGE = 'none'
     private static final String KEY_IMAGE = SK.image.name()
-    private final DockerImageNameMaker imageNameMaker
+    private final DockerImageNameGenerator nameGenerator
     private final SpecifyImageTag specifyImageTag
     private final ComposeServiceUnit serviceUnit
 
     ArtifactImageManager(
-            DockerImageNameMaker imageNameMaker,
+            DockerImageNameGenerator nameGenerator,
             SpecifyImageTag specifyImageTag,
             ComposeServiceUnit serviceUnit
     ) {
-        this.imageNameMaker = imageNameMaker
+        this.nameGenerator = nameGenerator
         this.specifyImageTag = specifyImageTag
         this.serviceUnit = serviceUnit
     }
@@ -40,7 +40,7 @@ class ArtifactImageManager extends Pipeline {
     }
 
     private String getFullImageName() {
-        return imageNameMaker.getDockerImage(artifactImage)
+        return nameGenerator.getDockerImage(artifactImage)
     }
 
     private String getArtifactTag() {

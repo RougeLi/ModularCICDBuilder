@@ -1,6 +1,6 @@
 package pipeline.common.util
 
-import pipeline.artifact.docker.DockerImageNameMaker
+import pipeline.artifact.docker.DockerImageNameGenerator
 import pipeline.artifact.util.DoBuildHandler
 import pipeline.common.constants.WorkflowType
 import pipeline.common.consul.ConsulKVBaseInfo
@@ -52,7 +52,7 @@ class Config extends ConfigMethods {
     public static String SSH_REMOTE_USER_NAME
     public static String SSH_REMOTE_PASSWORD
     public static ArrayList SSH_REMOTE_CREDENTIAL
-    public static DockerImageNameMaker DOCKER_IMAGE_NAME_MAKER
+    public static DockerImageNameGenerator DOCKER_IMAGE_NAME_GENERATOR
 
     Config(LinkedHashMap config) {
         super(config)
