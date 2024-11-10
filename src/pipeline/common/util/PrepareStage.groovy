@@ -13,8 +13,8 @@ class PrepareStage {
     private static final LinkedHashMap<EStagePathType, String> StagePathMap = [:]
 
     static {
-        StagePathMap.put(EStagePathType.stage, "${PackageStagePath}.flowstages")
-        StagePathMap.put(EStagePathType.custom, "${PackageStagePath}.customactions")
+        StagePathMap.put(EStagePathType.flow, "${PackageStagePath}.flow")
+        StagePathMap.put(EStagePathType.collection, "${PackageStagePath}.collection")
     }
 
     static StageBase createStage(StageTuple stageTuple) {
@@ -29,9 +29,8 @@ class PrepareStage {
     }
 
     private static String getClassName(StageTuple stageTuple) {
-        String stageName = stageTuple.stageName
-        String stagePathType = stageTuple.stagePathType
-        String path = StagePathMap[EStagePathType[stagePathType]]
-        return "$path.$stageName"
+        def pathType = EStagePathType[stageTuple.stagePathType] as EStagePathType
+        String path = StagePathMap[pathType]
+        return "$path.$stageTuple.stageName"
     }
 }

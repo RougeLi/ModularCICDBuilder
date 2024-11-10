@@ -1,13 +1,13 @@
-package pipeline.stage.customactions
+package pipeline.stage.collection
 
 import pipeline.artifact.docker.compose.DockerComposeDeployer
 import pipeline.common.util.Config
 import pipeline.module.lib.DockerComposeLib
-import pipeline.stage.util.CustomAction
+import pipeline.stage.util.CollectionStage
 import pipeline.stage.util.StageData
 
 @SuppressWarnings('unused')
-class PrintDockerCompose extends CustomAction {
+class PrintDockerCompose extends CollectionStage {
 
     void main(Config config, StageData stageData) {
         stage(stageData.Desc) {

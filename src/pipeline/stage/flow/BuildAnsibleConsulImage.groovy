@@ -1,13 +1,14 @@
-package pipeline.stage.flowstages
+package pipeline.stage.flow
 
 import pipeline.artifact.ansible.AnsibleConsulImageManager
-import pipeline.stage.util.Stage
+import pipeline.stage.util.FlowStage
 import pipeline.common.util.Config
 
 @SuppressWarnings('unused')
-class BuildAnsibleConsulImageStage extends Stage {
+class BuildAnsibleConsulImage extends FlowStage {
     public static String DOCKER_IMAGE = 'ansible-consul'
     public static String ANSIBLE_WORK_DIR = '/ansible'
+    String stageDescribe = 'Build Consul Image'
 
     void main(Config config) {
         def manager = new AnsibleConsulImageManager(DOCKER_IMAGE, ANSIBLE_WORK_DIR)

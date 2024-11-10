@@ -1,15 +1,15 @@
-package pipeline.stage.customactions
+package pipeline.stage.collection
 
 import pipeline.artifact.cd.IRemoteConnectionManager
 import pipeline.common.ssh.Command
 import pipeline.common.util.Config
 import pipeline.common.ssh.SSHRemote
 import pipeline.common.util.LinuxRemoteProvider
-import pipeline.stage.util.CustomAction
+import pipeline.stage.util.CollectionStage
 import pipeline.stage.util.StageData
 
 @SuppressWarnings('unused')
-class SSHConnectionCreate extends CustomAction {
+class SSHConnectionCreate extends CollectionStage {
 
     void main(Config config, StageData stageData) {
         stage(stageData.Desc) {

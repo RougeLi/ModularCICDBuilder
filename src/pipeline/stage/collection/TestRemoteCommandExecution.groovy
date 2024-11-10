@@ -1,14 +1,14 @@
-package pipeline.stage.customactions
+package pipeline.stage.collection
 
 import pipeline.common.ssh.Command
 import pipeline.common.util.Config
 import pipeline.common.ssh.SSHRemote
 import pipeline.common.util.LinuxRemoteProvider
-import pipeline.stage.util.CustomAction
+import pipeline.stage.util.CollectionStage
 import pipeline.stage.util.StageData
 
 @SuppressWarnings('unused')
-class TestRemoteCommandExecution extends CustomAction {
+class TestRemoteCommandExecution extends CollectionStage {
 
     void main(Config config, StageData stageData) {
         String result = SSHRemoteCommandExecution(config, stageData.StageArgs)

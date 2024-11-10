@@ -1,12 +1,12 @@
-package pipeline.stage.customactions
+package pipeline.stage.collection
 
 import pipeline.artifact.cd.IServiceVerification
 import pipeline.common.util.Config
-import pipeline.stage.util.CustomAction
+import pipeline.stage.util.CollectionStage
 import pipeline.stage.util.StageData
 
 @SuppressWarnings('unused')
-class ServiceVerification extends CustomAction {
+class ServiceVerification extends CollectionStage {
 
     void main(Config config, StageData stageData) {
         stage(stageData.Desc) {

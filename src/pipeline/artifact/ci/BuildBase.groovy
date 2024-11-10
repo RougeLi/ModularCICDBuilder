@@ -3,11 +3,11 @@ package pipeline.artifact.ci
 import pipeline.Pipeline
 import pipeline.common.constants.BuildTypeLabel
 import pipeline.common.util.Config
-import pipeline.flow.util.StageFlow
+import pipeline.flow.util.ActionFlow
 
 abstract class BuildBase extends Pipeline {
     protected Config config
-    protected StageFlow ciFlow = null
+    protected ActionFlow ciFlow = null
 
     BuildBase(Config config) {
         this.config = config
@@ -19,7 +19,7 @@ abstract class BuildBase extends Pipeline {
         platformArgInit()
     }
 
-    StageFlow getCIFlow() {
+    ActionFlow getCIFlow() {
         return ciFlow
     }
 

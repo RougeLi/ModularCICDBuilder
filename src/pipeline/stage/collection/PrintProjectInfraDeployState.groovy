@@ -1,12 +1,12 @@
-package pipeline.stage.customactions
+package pipeline.stage.collection
 
 import pipeline.common.util.Config
 import pipeline.common.util.ProjectInfraState
-import pipeline.stage.util.CustomAction
+import pipeline.stage.util.CollectionStage
 import pipeline.stage.util.StageData
 
 @SuppressWarnings('unused')
-class PrintProjectInfraDeployState extends CustomAction {
+class PrintProjectInfraDeployState extends CollectionStage {
 
     void main(Config config, StageData stageData) {
         stage(stageData.Desc) {

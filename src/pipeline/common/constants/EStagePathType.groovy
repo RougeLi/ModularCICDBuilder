@@ -1,6 +1,6 @@
 package pipeline.common.constants
 
 enum EStagePathType {
-    custom,
-    stage,
+    flow,
+    collection,
 }

@@ -4,11 +4,11 @@ import pipeline.artifact.ci.BuildBase
 import pipeline.artifact.ci.Util
 import pipeline.artifact.ci.BuildPlatform
 import pipeline.common.constants.WorkflowType
-import pipeline.flow.cd.CustomActionFlow
+import pipeline.flow.CustomActionFlow
 import pipeline.common.util.BaseExecutor
 import pipeline.common.util.Config
 import pipeline.common.util.StrategyTuple
-import pipeline.flow.util.StageFlow
+import pipeline.flow.util.ActionFlow
 
 class ArtifactExecutor extends BaseExecutor {
     private Closure ciFlowClosure = null
@@ -77,7 +77,7 @@ class ArtifactExecutor extends BaseExecutor {
         )
         BuildBase buildPlatform = buildPlatformClass.newInstance(config)
         buildPlatform.main()
-        StageFlow stageMain = buildPlatform.getCIFlow()
+        ActionFlow stageMain = buildPlatform.getCIFlow()
         ciFlowClosure = stageMain ? { stageMain.main() } : null
     }
 

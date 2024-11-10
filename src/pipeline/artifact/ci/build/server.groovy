@@ -3,7 +3,7 @@ package pipeline.artifact.ci.build
 import pipeline.artifact.ci.BuildBase
 import pipeline.common.constants.BuildTypeLabel
 import pipeline.common.util.Config
-import pipeline.flow.ci.Server
+import pipeline.flow.actions.Server
 
 @SuppressWarnings('unused')
 class server extends BuildBase {

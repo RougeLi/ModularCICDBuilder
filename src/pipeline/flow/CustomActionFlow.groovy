@@ -1,11 +1,11 @@
-package pipeline.flow.cd
+package pipeline.flow
 
 import pipeline.common.constants.EStagePathType
 import pipeline.common.util.Config
 import pipeline.common.util.StageTuple
 import pipeline.common.util.PrepareStage
 import pipeline.flow.util.Base
-import pipeline.stage.util.CustomAction
+import pipeline.stage.util.CollectionStage
 import pipeline.stage.util.StageData
 
 class CustomActionFlow extends Base {
@@ -28,25 +28,25 @@ class CustomActionFlow extends Base {
     }
 
     protected void prepareStageList() {
-        stageListAddToStageTupleList(EStagePathType.custom, stageList)
+        stageListAddToStageTupleList(EStagePathType.collection, stageList)
     }
 
     private void executeStageRun(StageTuple stageTuple) {
-        CustomAction customAction = getCustomAction(stageTuple)
+        CollectionStage customAction = getCustomAction(stageTuple)
         StageData stageData = stageTuple.stageData
         prepareStageData(stageData)
         runCustomAction(config, customAction, stageData)
     }
 
-    private static CustomAction getCustomAction(StageTuple stageTuple) {
-        def customAction = PrepareStage.createStage(stageTuple) as CustomAction
+    private static CollectionStage getCustomAction(StageTuple stageTuple) {
+        def customAction = PrepareStage.createStage(stageTuple) as CollectionStage
         EchoStep("ready to execute $stageTuple.stageName CustomAction.")
         return customAction
     }
 
     private static void runCustomAction(
             Config config,
-            CustomAction customAction,
+            CollectionStage customAction,
             StageData stageData
     ) {
         if (stageData.TimeoutMinutes > 0) {

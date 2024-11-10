@@ -1,12 +1,12 @@
-package pipeline.stage.customactions
+package pipeline.stage.collection
 
 import pipeline.artifact.cd.IDeploymentPreparation
 import pipeline.common.util.Config
-import pipeline.stage.util.CustomAction
+import pipeline.stage.util.CollectionStage
 import pipeline.stage.util.StageData
 
 @SuppressWarnings('unused')
-class DeploymentPreparation extends CustomAction {
+class DeploymentPreparation extends CollectionStage {
 
     void main(Config config, StageData stageData) {
         stage(stageData.Desc) {

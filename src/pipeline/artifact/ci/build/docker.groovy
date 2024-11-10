@@ -3,7 +3,7 @@ package pipeline.artifact.ci.build
 import pipeline.artifact.ci.BuildBase
 import pipeline.artifact.docker.panels.SetImageTag
 import pipeline.common.util.Config
-import pipeline.flow.ci.Docker
+import pipeline.flow.actions.Docker
 
 @SuppressWarnings('unused')
 class docker extends BuildBase {

@@ -1,20 +1,20 @@
-package pipeline.stage.customactions
+package pipeline.stage.collection
 
 import pipeline.artifact.docker.cli.CommandActuator
 import pipeline.artifact.docker.cli.run.RunConfig
 import pipeline.common.util.Config
 import pipeline.common.consul.ConsulKVInfo
 import pipeline.common.util.ProjectInfraState
-import pipeline.stage.flowstages.BuildAnsibleConsulImageStage
+import pipeline.stage.flow.BuildAnsibleConsulImage
 import tools.AnsibleParser
 import pipeline.stage.stagedatas.ConsulKVStage as ConsulKVStageData
-import pipeline.stage.util.CustomAction
+import pipeline.stage.util.CollectionStage
 import pipeline.stage.util.ProjectInfraTemplate
 import pipeline.stage.util.StageData
 import tools.yamlmodel.scripts.AnsibleConsulKV
 
 @SuppressWarnings('unused')
-class ConsulKVStage extends CustomAction {
+class ConsulKVStage extends CollectionStage {
     private static final String TargetTaskName = 'Print ConsulKV Value'
     private static final String AnsibleHostsFileName = 'ansible_hosts.yaml'
     private static final String AnsiblePlaybookFileName = 'ansible_playbook.yaml'
@@ -61,7 +61,7 @@ class ConsulKVStage extends CustomAction {
     }
 
     private static void checkAnsibleConsulImage(Config config) {
-        new BuildAnsibleConsulImageStage().main(config)
+        new BuildAnsibleConsulImage().main(config)
     }
 
     private static ProjectInfraTemplate generateTemplate() {
@@ -70,7 +70,7 @@ class ConsulKVStage extends CustomAction {
 
     private static String runAnsiblePlaybook() {
         def dockerRunConfig = new RunConfig(
-                BuildAnsibleConsulImageStage.DOCKER_IMAGE,
+                BuildAnsibleConsulImage.DOCKER_IMAGE,
                 dockerRunCommand
         )
         dockerRunConfig.setRM(true)
@@ -90,7 +90,7 @@ class ConsulKVStage extends CustomAction {
     }
 
     private static String convertVolumeString(String fileName) {
-        return "./$fileName:${BuildAnsibleConsulImageStage.ANSIBLE_WORK_DIR}/$fileName"
+        return "./$fileName:${BuildAnsibleConsulImage.ANSIBLE_WORK_DIR}/$fileName"
     }
 
     private static ProjectInfraTemplate parseAnsibleResult(String playbookResult) {

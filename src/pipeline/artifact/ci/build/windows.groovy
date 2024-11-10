@@ -2,7 +2,7 @@ package pipeline.artifact.ci.build
 
 import pipeline.artifact.ci.BuildBase
 import pipeline.common.util.Config
-import pipeline.flow.ci.Windows
+import pipeline.flow.actions.Windows
 
 @SuppressWarnings('unused')
 class windows extends BuildBase {

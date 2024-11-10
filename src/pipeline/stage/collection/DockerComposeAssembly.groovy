@@ -1,4 +1,4 @@
-package pipeline.stage.customactions
+package pipeline.stage.collection
 
 import pipeline.artifact.cd.CollectDeployTagsList
 import pipeline.artifact.cd.DeploymentConfigManager
@@ -9,12 +9,12 @@ import pipeline.artifact.cd.PuzzleCombiner
 import pipeline.artifact.docker.panels.SpecifyImageTag
 import pipeline.common.util.Config
 import pipeline.module.lib.DockerComposeLib
-import pipeline.stage.flowstages.CheckOutStage
-import pipeline.stage.util.CustomAction
+import pipeline.stage.flow.SCMCheckOut
+import pipeline.stage.util.CollectionStage
 import pipeline.stage.util.StageData
 
 @SuppressWarnings('unused')
-class DockerComposeAssembly extends CustomAction {
+class DockerComposeAssembly extends CollectionStage {
 
     void main(Config config, StageData stageData) {
         checkConfigData(config, stageData)
@@ -46,7 +46,7 @@ class DockerComposeAssembly extends CustomAction {
     }
 
     private static void execCheckout(Config config) {
-        new CheckOutStage().entryDeployMode().main(config)
+        new SCMCheckOut().entryDeployMode().run(config)
     }
 
     private static void initComposeDeployerMap(Config config, LinkedHashMap stageArgs) {
